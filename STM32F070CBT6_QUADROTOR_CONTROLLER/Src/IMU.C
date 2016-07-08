@@ -7,20 +7,15 @@
 **LEVEL INTERFACE AND RELEVANT FILTER IMPLEMENTATIONS
 **
 */
-#include "spi.h"
 #include "IMU.h"
+#include "spi.h"
 #include "math.h"
-
-
-
-
-
-
 /*
 *
 *init all
 *
 */
+
 void initIMU(){
     //mag init
     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,1);
@@ -249,20 +244,20 @@ void getAllVals(){
       }
       
       pitch =  atan2f(runAvgAx,sqrt(runAvgAy*runAvgAy + runAvgAz*runAvgAz))*180/PI;
-      roll =   atan2f(runAvgAy,(runAvgAz))*180/PI;
+      roll  =  atan2f(runAvgAy,(runAvgAz))*180/PI;
       YH = runAvgMy*cosf(roll)+runAvgMz*sinf(roll);
       XH = (-runAvgMx*cosf(pitch))+(runAvgMy*sinf(pitch)*sinf(roll))+(runAvgMz*sinf(pitch)*cosf(roll));
       yaw = atan2f(-YH,XH)*180/PI;
 }
 
-float getAx(){
-return acceleration_x;
+float *getRoll(){
+return &roll;
 }
-float getAy(){
-return acceleration_y;
+float *getPitch(){
+return &pitch;
 }
-float getAz(){
-return acceleration_z;
+float *getYaw(){
+return &yaw;
 }
 
 void filter(){

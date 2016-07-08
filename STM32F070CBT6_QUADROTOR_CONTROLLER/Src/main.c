@@ -114,9 +114,9 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-   
-    //stabilize();
-    getAllVals();
+    
+    stabilize();
+    //getAllVals();
     //HAL_Delay(100);
     if(!imuDisable){
      // getAllVals();

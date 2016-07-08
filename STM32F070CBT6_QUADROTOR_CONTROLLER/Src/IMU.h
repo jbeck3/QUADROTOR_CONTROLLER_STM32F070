@@ -1,4 +1,10 @@
-#include "stm32f0xx_hal.h"
+#ifndef __IMU_H
+#define __IMU_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
+   
+   #include "stm32f0xx_hal.h"
 /*
 *Variables
 */
@@ -52,6 +58,11 @@ function prototypes
 void initIMU();
 void readMagnometer();
 void getAllVals();
-float getAx();
-float getAy();
-float getAz();
+float *getRoll();
+float *getPitch();
+float *getYaw();
+
+#ifdef __cplusplus
+}
+#endif
+#endif /*__IMU_H */

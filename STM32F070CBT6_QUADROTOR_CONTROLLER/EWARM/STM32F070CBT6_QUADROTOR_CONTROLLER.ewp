@@ -979,16 +979,10 @@
         <name>$PROJ_DIR$\..\Src\GPS.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\Src\GPS.h</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Src\i2c.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\IMU.C</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\IMU.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\kalman.c</name>
@@ -1001,9 +995,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\PID.c</name>
-      </file>
-      <file>
-        <name>$PROJ_DIR$\..\Src\PID.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\spi.c</name>
