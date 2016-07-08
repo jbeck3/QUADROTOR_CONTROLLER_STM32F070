@@ -3,7 +3,7 @@ stlinkserialNo=6683C7F5
 stlinkfoundProbes=
 CStepIntDis=_ 0
 [DebugChecksum]
-Checksum=888846385
+Checksum=369791463
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -28,26 +28,28 @@ Fmt2={W}42:acceleration_z	3	0
 Fmt3={W}42:angular_rate_x	3	0
 Fmt4={W}42:angular_rate_y	3	0
 Fmt5={W}42:angular_rate_z	3	0
-Fmt6={W}42:magnometer_x	3	0
-Fmt7={W}42:magnometer_y	3	0
-Fmt8={W}42:magnometer_z	3	0
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
-[CallStackLog]
-Enabled=0
-[CallStackStripe]
-ShowTiming=1
+Fmt6={W}42:derp45	0	9
+Fmt7={W}42:magnometer_x	3	0
+Fmt8={W}42:magnometer_y	3	0
+Fmt9={W}42:magnometer_z	3	0
+Fmt10={W}42:pitch	0	9
 [Disassemble mode]
 mode=0
 [Breakpoints2]
 Count=0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
 [Aliases]
 A0=_ "F:\Vital Data Bank\YCP\YCP Summer '16\Embedded Systems\QUADROTOR_CONTROLLER_STM32F070\STM32F070CBT6_QUADROTOR_CONTROLLER\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal.c" ""
 A1=_ "F:\Vital Data Bank\YCP\YCP Summer '16\Embedded Systems\QUADROTOR_CONTROLLER_STM32F070\STM32F070CBT6_QUADROTOR_CONTROLLER\Src\spi.c" "J:\Vital Data Bank\YCP\YCP Summer '16\Embedded Systems\QUADROTOR_CONTROLLER_STM32F070\STM32F070CBT6_QUADROTOR_CONTROLLER\Src\spi.c"
 Count=2
 SuppressDialog=1
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""

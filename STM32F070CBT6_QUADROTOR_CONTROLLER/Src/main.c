@@ -64,51 +64,9 @@ void Error_Handler(void);
 int dumb=0;
 float distance;
 int time=0;
-
-//start imu stuff
 int imuDisable = 0;
-uint8_t trtx[] = {(0xA0|0xC0),0xA1,0xA2};
-uint8_t trrx[3];
-uint8_t mag_powerup[] = {0x22,0x00};
-uint8_t mag_powerup_rd[] = {0xA2,0x00};
 
-uint8_t data_mag[] = {(0x27|0xC0)};
-uint8_t data_acc[] = 0xA7;//{(0x27|0x80)};
-uint8_t data_gyr[] = {(0x17|0x80)};
 
-uint8_t data_magback[10];
-uint8_t data_accback[10];
-uint8_t data_gyrback[10];
-
-uint8_t gyroODRBWaddrW[] = {0x10,0xC0};
-uint8_t gyroODRBWdata[] = {0xC0};
-uint8_t gyroENaddrW[] = {0x1E,0x38};
-uint8_t gyroENdata[] = {0x38};
-
-uint8_t acceODRBWaddrW[] = {0x20,0xC0};
-uint8_t acceODRBWdata[] = {0xC0};
-uint8_t acceENaddrW[] = {0x1F,0x38};
-uint8_t acceENdata[] = {0x38};
-
-float magnometer_x,magnometer_y,magnometer_z;
-float acceleration_x,acceleration_y,acceleration_z;
-float angular_rate_x,angular_rate_y,angular_rate_z;
-uint8_t gyro_status,acce_status,magn_status;
-int accel_range= 5;
-int gyro_range = 490;
-int magn_range = 8;
-float anglex=0;
-//end imu stuff
-//gps stuff
-char str[130],str2[130],str3[130],lonss_s[10],latts_s[10],lonss_s_2[10],latts_s_2[10],lonss_s_3[10],latts_s_3[10],id_s1[10];
-int gpsDisable=1;
-uint8_t gps_string[100],gps_char,gps_start_str[6];
-uint8_t GPS_START[] = {'$','G','P','G','G','A'};
-uint8_t lat_inc,lon_inc,gpscheck;
-int latint=0,lonint=0;
-double latitude=39.948999,lattemp=0,lontemp=0,longitude=-76.730270,latintbuild=0,latintdec=0,lonintbuild=0,lonintdec=0;
-//end gpsstuff
-int i=0;
 /* USER CODE END 0 */
 
 int main(void)
@@ -137,77 +95,8 @@ int main(void)
   MX_USB_PCD_Init();
 
   /* USER CODE BEGIN 2 */
-  //mag init
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_3,1);
-   
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,0);
-    asm("nop"); 
-    HAL_SPI_Transmit(&hspi1,&mag_powerup[0],2,100);
-    asm("nop");
-    
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,0);
-    asm("nop"); 
-    HAL_SPI_Transmit(&hspi1,&trtx[0],1,100);
-    asm("nop");
-    HAL_SPI_Receive(&hspi1,&trrx[0],3,100);
-    asm("nop");    
-    
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,0);
-    asm("nop"); 
-    HAL_SPI_Transmit(&hspi1,&mag_powerup_rd[0],1,100);
-    asm("nop");
-    HAL_SPI_Receive(&hspi1,&trrx[2],1,100);
-    asm("nop");
-    
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA,GPIO_PIN_4,0);
-    asm("nop"); 
-    HAL_SPI_Transmit(&hspi1,&trtx[2],1,100);
-    asm("nop");
-    HAL_SPI_Receive(&hspi1,&trrx[2],1,100);
-    
-    //accel and gyro init
-    HAL_GPIO_WritePin(GPIOA, CS_M_Pin, 1);
-    
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,0);
-    asm("nop");
-    HAL_SPI_Transmit(&hspi1,&gyroODRBWaddrW[0],2,100);
-   // HAL_SPI_Transmit(&hspi1,&gyroODRBWdata[0],1,100);
-    asm("nop");
-    
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,0);
-    asm("nop");
-    HAL_SPI_Transmit(&hspi1,&gyroENaddrW[0],2,100);
-   // HAL_SPI_Transmit(&hspi1,&gyroENdata[0],1,100);
-    asm("nop");
-    
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,0);
-    asm("nop");
-    HAL_SPI_Transmit(&hspi1,&acceODRBWaddrW[0],2,100);
-   // HAL_SPI_Transmit(&hspi1,&acceODRBWdata[0],1,100);
-    asm("nop");
-    
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,1);
-    asm("nop");
-    HAL_GPIO_WritePin(GPIOA, CS_AG_Pin,0);
-    asm("nop");
-    HAL_SPI_Transmit(&hspi1,&acceENaddrW[0],2,100);
-   // HAL_SPI_Transmit(&hspi1,&acceENdata[0],1,100);
-    asm("nop");
-    
+  
+    initIMU();
     /*
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     TIM1->PSC  = 0x0001;
@@ -226,233 +115,17 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
    
-    
-    
-    
+    //stabilize();
+    getAllVals();
+    //HAL_Delay(100);
     if(!imuDisable){
-      HAL_GPIO_WritePin(GPIOA,CS_AG_Pin,1);
-      asm("nop"); 
-      
-      HAL_GPIO_WritePin(GPIOA,CS_M_Pin,1);
-      asm("nop"); 
-      HAL_GPIO_WritePin(GPIOA,CS_M_Pin,0);
-      asm("nop"); 
-      HAL_SPI_Transmit(&hspi1,&data_mag[0],1,100);
-      asm("nop");
-      HAL_SPI_Receive(&hspi1,&data_magback[i],9,100);
-      asm("nop");   
-      
-      magn_status  = data_magback[2];
-      magnometer_x = ((float)((int16_t)(data_magback[4]<<8) + data_magback[3]))*magn_range/0xFFFF;
-      magnometer_y = ((float)((int16_t)(data_magback[6]<<8) + data_magback[5]))*magn_range/0xFFFF;
-      magnometer_z = ((float)((int16_t)(data_magback[8]<<8) + data_magback[7]))*magn_range/0xFFFF;
-      
-      HAL_GPIO_WritePin(GPIOA,CS_M_Pin,1);
-      asm("nop"); 
-      
-      HAL_GPIO_WritePin(GPIOA,CS_AG_Pin,1);
-      asm("nop"); 
-      HAL_GPIO_WritePin(GPIOA,CS_AG_Pin,0);
-      asm("nop"); 
-      HAL_SPI_Transmit(&hspi1,&data_acc[0],1,100);
-      asm("nop");
-      HAL_SPI_Receive(&hspi1,&data_accback[0],9,100);
-      asm("nop");
-      
-      acce_status    = data_accback[2];
-      acceleration_x = ((float)((int16_t)(data_accback[4]<<8) + data_accback[3]))*accel_range/0xFFFF;
-      acceleration_y = ((float)((int16_t)(data_accback[6]<<8) + data_accback[5]))*accel_range/0xFFFF;
-      acceleration_z = ((float)((int16_t)(data_accback[8]<<8) + data_accback[7]))*accel_range/0xFFFF;
-      
-      HAL_GPIO_WritePin(GPIOA,CS_AG_Pin,1);
-      asm("nop"); 
-      HAL_GPIO_WritePin(GPIOA,CS_AG_Pin,0);
-      asm("nop"); 
-      HAL_SPI_Transmit(&hspi1,&data_gyr[0],1,100);
-      asm("nop");
-      HAL_SPI_Receive(&hspi1,&data_gyrback[0],9,100);
-      asm("nop");
-      
-      gyro_status    = data_gyrback[2];
-      angular_rate_x = ((float)((int16_t)(data_gyrback[4]<<8) + data_gyrback[3]))*gyro_range/0xFFFF;
-      angular_rate_y = ((float)((int16_t)(data_gyrback[6]<<8) + data_gyrback[5]))*gyro_range/0xFFFF;
-      angular_rate_z = ((float)((int16_t)(data_gyrback[8]<<8) + data_gyrback[7]))*gyro_range/0xFFFF;
-    
-      anglex = getAngle(anglex,angular_rate_x,0.1);
+     // getAllVals();
     }   
     //HAL_Delay(100);
     /*if(TIM1->CCR1 <=(0xAFFA)){TIM1->CCR1 += 0x00FF;}
     else{TIM1->CCR1 = 0x6000;}
     */
-    //gps
-    gpscheck = 0; 
-    while((gpsDisable) && (gpscheck == 0)){
-      HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-      if(gps_char == '\n'){
-        HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-        if(gps_char == '$'){
-          gps_string[0] = gps_char;
-          HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-          if(gps_char == 'G'){
-            gps_string[1] = gps_char;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-          if(gps_char == 'P'){
-            gps_string[2] = gps_char;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-          if(gps_char == 'G'){
-            gps_string[3] = gps_char;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-          if(gps_char == 'G'){
-            gps_string[4] = gps_char;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-          if(gps_char == 'A'){
-            gps_string[5] = gps_char;
-            
-            while(gps_char != ','){HAL_UART_Receive(&huart1, &gps_char, 1, 1);}
-            gps_char = 0x00;
-            
-            //get rid of time
-            while(gps_char != ','){HAL_UART_Receive(&huart1, &gps_char, 1, 1);}
-            gps_char = 0x00;
-            
-            //now grab lat
-            
-            //grab first 2 of lat
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[6] = gps_char;
-            latint = (gps_char-0x30);  
-            
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[7] = gps_char;
-            latint = ((latint*10) + (gps_char-0x30));
-            
-            //grab next 2 for calc
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[8] = gps_char;
-            latintbuild = (gps_char-0x30); 
-            
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[9] = gps_char;
-            latintbuild = ((latintbuild*10) + (gps_char-0x30));
-            
-            //get rid of '.'
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            
-            //grab decimal for calc
-            latintdec=0;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            latintdec = (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            latintdec = (latintdec*10) + (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            latintdec = (latintdec*10) + (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            latintdec = (latintdec*10) + (gps_char-0x30); 
-            lattemp = ( ((double)latintbuild +( (double)latintdec/10000.00 )) /60.00 );
-            
-            latitude = latint + lattemp;
-            
-             
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            
-            //get to end
-            while(gps_char != ','){HAL_UART_Receive(&huart1, &gps_char, 1, 1);}
-            gps_char = 0x00;
-            
-            //get rid of n/s
-            while(gps_char != ','){HAL_UART_Receive(&huart1, &gps_char, 1, 1);}
-            gps_char = 0x00;
-            /*//get to end
-            while(gps_char != ','){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            gps_char = 0x00;*/
-            
-            //now grab lon
-            
-            //grab first 3 of lon
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[15] = gps_char;
-            //lonint = (gps_char-0x30);  
-            lonint = 0.1;
-            
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[16] = gps_char;
-            lonint = ((lonint*10) + (gps_char-0x30));
-            
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[17] = gps_char;
-            lonint = ((lonint*10) + (gps_char-0x30));
-            
-            //grab next 2 for calc
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[18] = gps_char;
-            lonintbuild = (gps_char-0x30); 
-            
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            gps_string[19] = gps_char;
-            lonintbuild = ((lonintbuild*10) + (gps_char-0x30));
-            
-            //get rid of '.'
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            
-            //grab decimal for calc
-            latintdec=0;
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            lonintdec = (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            lonintdec = (lonintdec*10) + (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            lonintdec = (lonintdec*10) + (gps_char-0x30); 
-            HAL_UART_Receive(&huart1, &gps_char, 1, 1);
-            //lonintdec = (lonintdec*10) + (gps_char-0x30); 
-            lontemp = ( ((double)lonintbuild +( (double)lonintdec/1000.00 )) /60.00 );
-            
-            longitude = (lonint + lontemp)*(-1);
-            gpscheck=1;
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////////////////
-            
-            ////////////}
-            
-            /*
-            gps_char = 0x00;
-            //while(gps_char != ','){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            lon_inc=0;
-            while(gps_char != ','){
-              HAL_UART_Receive(&huart6, &gps_char, 1, 1);
-              gps_string[6+lat_inc+lon_inc] = gps_char;
-              lon_inc++;
-            }*/
-            //HAL_UART_Receive(&huart6, &gps_string[10], 10, 100);
-            //while(gps_char != 'N' || gps_char != 'S' ){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            /*
-            while(gps_char != ','){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            HAL_UART_Receive(&huart6, &gps_string[20], 10, 100);
-            //while(gps_char != 'N' || gps_char != 'S' ){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            HAL_UART_Receive(&huart6, &gps_char, 1, 1);
-            HAL_UART_Receive(&huart6, &gps_string[30], 17, 100);
-            while(gps_char != ','){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            //while(gps_char != 'W' || gps_char != 'E' ){HAL_UART_Receive(&huart6, &gps_char, 1, 1);}
-            */
-            
-            gps_char='P';
-        
-        /*if(gps_char == '$'){
-          HAL_UART_Receive(&huart6, &gps_char, 1, 1);
-          if(gps_char == 'G'){*/
-            
-                  }
-                }
-              }
-            }
-          }
-        }               
-      }  
-    }//endgps
+    
   
   }
   /* USER CODE END 3 */
@@ -509,23 +182,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void filter(){
-	uint8_t counter=0;
-	float runAvg=0;
-	float runSum=0;
-	
-	if(counter<255){
-		counter++;
-		runSum += getNewVal();
-		runAvg = runSum/counter;
-	}else{
-		counter=1;
-		runSum = runAvg;
-	}
-	
-	//this is a change
-	
-}
+
 /* USER CODE END 4 */
 
 /**

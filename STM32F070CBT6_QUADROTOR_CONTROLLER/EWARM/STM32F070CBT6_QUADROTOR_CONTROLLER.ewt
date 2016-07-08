@@ -1062,6 +1062,15 @@
         <name>$PROJ_DIR$\..\Src\gpio.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\GPS.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\GPS.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\i2c.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\IMU.C</name>
       </file>
       <file>
@@ -1077,6 +1086,12 @@
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\PID.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\PID.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\spi.c</name>
       </file>
       <file>
@@ -1087,6 +1102,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\tim.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\usart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\usb.c</name>
       </file>
     </group>
   </group>
@@ -1125,6 +1146,12 @@
         <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c_ex.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pcd.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pcd_ex.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr.c</name>
       </file>
       <file>
@@ -1147,6 +1174,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_tim_ex.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_uart_ex.c</name>
       </file>
     </group>
   </group>
