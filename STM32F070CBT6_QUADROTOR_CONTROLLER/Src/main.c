@@ -47,7 +47,12 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+ 
+#define tim1_psc = 0xBB80;
+#define tim3_psc = 0xBB80;
+#define tim1_arr = 0x190;
+#define tim3_arr = 0x190;
+    
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,6 +102,21 @@ int main(void)
   /* USER CODE BEGIN 2 */
   
     initIMU();
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+    TIM1->PSC  = 0x1E0;
+    TIM1->ARR  = 0x190;
+    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+    HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+    TIM3->PSC  = 0x1E0;
+    TIM3->ARR  = 0x190;
+    
+    
+  TIM1->CCR1 = 100;
+  TIM1->CCR2 = 100;
+  TIM3->CCR1 = 100;
+  TIM3->CCR2 = 100;
+    HAL_Delay(1000);
     /*
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     TIM1->PSC  = 0x0001;
@@ -116,6 +136,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
     
     stabilize();
+    //getLocation();
     //getAllVals();
     //HAL_Delay(100);
     if(!imuDisable){

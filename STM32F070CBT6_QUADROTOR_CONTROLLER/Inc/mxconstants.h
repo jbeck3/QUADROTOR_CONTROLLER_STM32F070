@@ -55,6 +55,14 @@
 #define CS_NRF_GPIO_Port GPIOB
 #define IRQ_NRF_Pin GPIO_PIN_12
 #define IRQ_NRF_GPIO_Port GPIOB
+#define PITCH_POS_Pin GPIO_PIN_8
+#define PITCH_POS_GPIO_Port GPIOA
+#define PITCH_NEG_Pin GPIO_PIN_9
+#define PITCH_NEG_GPIO_Port GPIOA
+#define ROLL_POS_Pin GPIO_PIN_4
+#define ROLL_POS_GPIO_Port GPIOB
+#define ROLL_NEG_Pin GPIO_PIN_5
+#define ROLL_NEG_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

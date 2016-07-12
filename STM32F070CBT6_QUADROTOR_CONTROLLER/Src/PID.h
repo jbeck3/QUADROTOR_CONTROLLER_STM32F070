@@ -13,15 +13,26 @@ PID .h
   //float roll;
   float *PIDRoll,*PIDPitch,*PIDYaw;
   float accelx,accely,accelz,timeInterval=.001;
-  float rollKp=.1,rollKi=.001,rollKd=.001;
+  
+  float rollKp=.3;
+  float rollKi=.00001;
+  float rollKd=.00001;
   float rollPout,rollIout,rollDout;
   float rollError,rollLastError,rollNewArea,rollRunningArea;
-  float pitchKp=.1,pitchKi=.001,pitchKd=.001;
+  
+  float pitchKp=.3;
+  float pitchKi=.00001;
+  float pitchKd=.00001;
   float pitchPout,pitchIout,pitchDout;
   float pitchError,pitchLastError,pitchNewArea,pitchRunningArea;
+  
   float pitchOut,rollOut;
   float pitchTarget=0,rollTarget=0,yawTarget=0;
   float motorRP,motorRN,motorPP,motorPN;
+  
+ 
+  
+  
   /*
   function protos
   */
