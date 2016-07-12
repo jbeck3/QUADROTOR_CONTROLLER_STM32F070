@@ -55,8 +55,8 @@ void stabilize(){
   //now change pwm vals
   TIM1->CCR1 = motorPP + 70;
   TIM1->CCR2 = motorPN + 70;
-  TIM3->CCR1 = motorRP + 73;
-  TIM3->CCR2 = motorRN + 68;
+  TIM3->CCR1 = motorRP + 70;
+  TIM3->CCR2 = motorRN + 70;
   
   
 }

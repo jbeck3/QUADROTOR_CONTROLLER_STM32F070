@@ -36,7 +36,6 @@
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
-#include "usb.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -97,7 +96,6 @@ int main(void)
   MX_SPI2_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();
-  MX_USB_PCD_Init();
 
   /* USER CODE BEGIN 2 */
   
@@ -112,11 +110,17 @@ int main(void)
     TIM3->ARR  = 0x190;
     
     
+  /*TIM1->CCR1 = 200;
+  TIM1->CCR2 = 200;
+  TIM3->CCR1 = 200;
+  TIM3->CCR2 = 200;
+  HAL_Delay(5000);*/
   TIM1->CCR1 = 100;
   TIM1->CCR2 = 100;
   TIM3->CCR1 = 100;
   TIM3->CCR2 = 100;
-    HAL_Delay(1000);
+  HAL_Delay(1000);
+  
     /*
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     TIM1->PSC  = 0x0001;
@@ -142,9 +146,19 @@ int main(void)
     if(!imuDisable){
      // getAllVals();
     }   
-    //HAL_Delay(100);
-    /*if(TIM1->CCR1 <=(0xAFFA)){TIM1->CCR1 += 0x00FF;}
-    else{TIM1->CCR1 = 0x6000;}
+    /*
+    if(TIM1->CCR1 <=(200)){
+    TIM1->CCR1 += 10;
+    TIM1->CCR2 += 10;
+    TIM3->CCR1 += 10;
+    TIM3->CCR2 += 10;
+    HAL_Delay(500);
+    }
+    else{
+      TIM1->CCR1 = 100;
+    TIM1->CCR2 = 100;
+    TIM3->CCR1 = 100;
+    TIM3->CCR2 = 100;}
     */
     
   
@@ -184,11 +198,9 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
-                              |RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
-  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
