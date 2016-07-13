@@ -41,6 +41,7 @@ int accel_range= 2;
 int gyro_range = 245;
 int magn_range = 4;
 float anglex=0;
+int AVERAGE_MAX = 300;
 //end imu stuff
 float pitch,roll,YH,XH,yaw;
 float PI = 3.1415;

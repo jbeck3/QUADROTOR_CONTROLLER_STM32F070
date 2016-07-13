@@ -3,7 +3,7 @@ stlinkserialNo=6683C7F5
 stlinkfoundProbes=
 CStepIntDis=_ 0
 [DebugChecksum]
-Checksum=849241949
+Checksum=-206617175
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -22,17 +22,18 @@ ShowArgs=0
 [Disassembly]
 MixedMode=1
 [watch_formats]
-Fmt0={W}42:acceleration_x	3	0
-Fmt1={W}42:acceleration_y	3	0
-Fmt2={W}42:acceleration_z	3	0
-Fmt3={W}42:angular_rate_x	3	0
-Fmt4={W}42:angular_rate_y	3	0
-Fmt5={W}42:angular_rate_z	3	0
-Fmt6={W}42:derp45	0	9
-Fmt7={W}42:magnometer_x	3	0
-Fmt8={W}42:magnometer_y	3	0
-Fmt9={W}42:magnometer_z	3	0
-Fmt10={W}42:pitch	0	9
+Fmt0={W}42:AVERAGE_MAX	3	0
+Fmt1={W}42:acceleration_x	3	0
+Fmt2={W}42:acceleration_y	3	0
+Fmt3={W}42:acceleration_z	3	0
+Fmt4={W}42:angular_rate_x	3	0
+Fmt5={W}42:angular_rate_y	3	0
+Fmt6={W}42:angular_rate_z	3	0
+Fmt7={W}42:derp45	0	9
+Fmt8={W}42:magnometer_x	3	0
+Fmt9={W}42:magnometer_y	3	0
+Fmt10={W}42:magnometer_z	3	0
+Fmt11={W}42:pitch	0	9
 [SfrWindow]
 Show=1 1
 Sort=4 0
@@ -44,6 +45,9 @@ Count=0
 LoggingEnabled=_ 0
 LogFile=_ ""
 Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [Aliases]
 Count=0
 SuppressDialog=0
@@ -51,6 +55,3 @@ SuppressDialog=0
 Enabled=0
 [CallStackStripe]
 ShowTiming=1
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""

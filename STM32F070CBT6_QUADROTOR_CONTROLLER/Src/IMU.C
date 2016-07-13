@@ -216,7 +216,7 @@ void getAllVals(){
       angular_rate_z = ((float)((int16_t)(data_gyrback[8]<<8) + data_gyrback[7]))*gyro_range/0x7FFF;
    
       
-      if(counter<255){
+      if(counter<AVERAGE_MAX){
 		counter++;
                 
 		runSumAx += acceleration_x;

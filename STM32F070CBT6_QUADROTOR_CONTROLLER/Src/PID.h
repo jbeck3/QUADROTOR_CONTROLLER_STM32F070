@@ -14,15 +14,15 @@ PID .h
   float *PIDRoll,*PIDPitch,*PIDYaw;
   float accelx,accely,accelz,timeInterval=.001;
   
-  float rollKp=.3;
-  float rollKi=.00001;
-  float rollKd=.00001;
+  float rollKp=.2;
+  float rollKi=.025;
+  float rollKd=.10;
   float rollPout,rollIout,rollDout;
   float rollError,rollLastError,rollNewArea,rollRunningArea;
   
-  float pitchKp=.3;
-  float pitchKi=.00001;
-  float pitchKd=.00001;
+  float pitchKp=.23;
+  float pitchKi=.035;
+  float pitchKd=.08;
   float pitchPout,pitchIout,pitchDout;
   float pitchError,pitchLastError,pitchNewArea,pitchRunningArea;
   
