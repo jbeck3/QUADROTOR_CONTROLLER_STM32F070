@@ -1,7 +1,12 @@
 /*
-*GPS.h
-*/
-
+ **
+ **FILE: GPS INTERFACE.h
+ **AUTHOR: JBECKIII
+ **DATE:7/7/2016
+ **PURPOSE: 
+ **LEVEL 
+ **
+ */
 //gps stuff
 char str[130],str2[130],str3[130],lonss_s[10],latts_s[10],lonss_s_2[10],latts_s_2[10],lonss_s_3[10],latts_s_3[10],id_s1[10];
 int gpsDisable=1;

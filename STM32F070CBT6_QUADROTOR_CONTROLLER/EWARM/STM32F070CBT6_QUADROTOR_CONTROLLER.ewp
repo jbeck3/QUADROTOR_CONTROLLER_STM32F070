@@ -993,6 +993,12 @@
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\NRF_Utilities.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\NRF_Utilities.h</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\PID.c</name>
       </file>
       <file>
@@ -1010,7 +1016,6 @@
       <file>
         <name>$PROJ_DIR$\..\Src\usart.c</name>
       </file>
-      
     </group>
   </group>
   <group>
@@ -1047,8 +1052,6 @@
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_i2c_ex.c</name>
       </file>
-      
-      
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr.c</name>
       </file>

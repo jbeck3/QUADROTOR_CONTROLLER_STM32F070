@@ -1,9 +1,9 @@
 [StLinkDriver]
-stlinkserialNo=6683C7F5
+stlinkserialNo=3E6C3C35
 stlinkfoundProbes=
 CStepIntDis=_ 0
 [DebugChecksum]
-Checksum=-206617175
+Checksum=-1462629184
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -23,24 +23,31 @@ ShowArgs=0
 MixedMode=1
 [watch_formats]
 Fmt0={W}42:AVERAGE_MAX	3	0
-Fmt1={W}42:acceleration_x	3	0
-Fmt2={W}42:acceleration_y	3	0
-Fmt3={W}42:acceleration_z	3	0
-Fmt4={W}42:angular_rate_x	3	0
-Fmt5={W}42:angular_rate_y	3	0
-Fmt6={W}42:angular_rate_z	3	0
-Fmt7={W}42:derp45	0	9
-Fmt8={W}42:magnometer_x	3	0
-Fmt9={W}42:magnometer_y	3	0
-Fmt10={W}42:magnometer_z	3	0
-Fmt11={W}42:pitch	0	9
+Fmt1={W}42:MOTORPN_OFFSET	3	0
+Fmt2={W}42:MOTORPP_OFFSET	3	0
+Fmt3={W}42:MOTORRN_OFFSET	3	0
+Fmt4={W}42:MOTORRP_OFFSET	3	0
+Fmt5={W}42:PITCH_MOTOR_CENTER_VAL	3	0
+Fmt6={W}42:ROLL_MOTOR_CENTER_VAL	3	0
+Fmt7={W}42:acceleration_x	3	0
+Fmt8={W}42:acceleration_y	3	0
+Fmt9={W}42:acceleration_z	3	0
+Fmt10={W}42:angular_rate_x	3	0
+Fmt11={W}42:angular_rate_y	3	0
+Fmt12={W}42:angular_rate_z	3	0
+Fmt13={W}42:derp45	0	9
+Fmt14={W}42:magnometer_x	3	0
+Fmt15={W}42:magnometer_y	3	0
+Fmt16={W}42:magnometer_z	3	0
+Fmt17={W}42:pitch	0	9
 [SfrWindow]
 Show=1 1
 Sort=4 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\stm32f0xx_it.c}.131.3" 0 0 1 "" 0 "" 0
+Count=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

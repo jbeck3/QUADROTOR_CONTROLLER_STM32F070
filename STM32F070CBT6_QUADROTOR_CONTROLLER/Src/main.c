@@ -51,6 +51,11 @@
 #define tim3_psc = 0xBB80;
 #define tim1_arr = 0x190;
 #define tim3_arr = 0x190;
+
+uint8_t PayloadReadyFlag = 0x00;
+uint8_t Payload[32] = {NULL};
+uint8_t *PayloadP;
+uint16_t ProportionalK=0,IntegralK=0,DerivativeK=0,OffsetGain=0;
     
 /* USER CODE END PV */
 
@@ -69,7 +74,6 @@ int dumb=0;
 float distance;
 int time=0;
 int imuDisable = 0;
-
 
 /* USER CODE END 0 */
 
@@ -99,7 +103,9 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
   
-    initIMU();
+    initIMU();//Initialize the Inertial Measurement Unit
+    SetupReceiver();//setup RXer for wireless
+    //Start Timers and set their outputs
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
     TIM1->PSC  = 0x1E0;
@@ -110,25 +116,14 @@ int main(void)
     TIM3->ARR  = 0x190;
     
     
-  /*TIM1->CCR1 = 200;
-  TIM1->CCR2 = 200;
-  TIM3->CCR1 = 200;
-  TIM3->CCR2 = 200;
-  HAL_Delay(5000);*/
-  TIM1->CCR1 = 100;
-  TIM1->CCR2 = 100;
-  TIM3->CCR1 = 100;
-  TIM3->CCR2 = 100;
-  HAL_Delay(1000);
+    TIM1->CCR1 = 100;
+    TIM1->CCR2 = 100;
+    TIM3->CCR1 = 100;
+    TIM3->CCR2 = 100;
+    //Let the Electronic Speed Controllers grab the signal
+    HAL_Delay(1000);
   
-    /*
-    HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-    TIM1->PSC  = 0x0001;
-    TIM1->ARR  = 0xFFFF;
-    HAL_Delay(100);
-    TIM1->CCR1 = 0x5000;
-    //HAL_Delay(100);
-    //TIM1->CCR1 = ;
+    
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -138,29 +133,32 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    
+    //Stabilize
     stabilize();
-    //getLocation();
-    //getAllVals();
-    //HAL_Delay(100);
-    if(!imuDisable){
-     // getAllVals();
-    }   
-    /*
-    if(TIM1->CCR1 <=(200)){
-    TIM1->CCR1 += 10;
-    TIM1->CCR2 += 10;
-    TIM3->CCR1 += 10;
-    TIM3->CCR2 += 10;
-    HAL_Delay(500);
+    //Check for new packet
+    if(PayloadReadyFlag){
+      PayloadP = (uint8_t *)ReceivePayload();
+      for(uint8_t i = 0; i < 32; i++){
+        Payload[i] = PayloadP[i + 1];
+      }
+      if(Payload[1] == 0x00){
+        //kill quad
+        setCent(0.0);
+        PayloadReadyFlag=0;
+      }else{
+        //update values
+      ProportionalK = (uint16_t)(Payload[2] << 8 + Payload[3]);
+      IntegralK = (uint16_t)(Payload[4] << 8 + Payload[5]);
+      DerivativeK = (uint16_t)(Payload[6] << 8 + Payload[7]);
+      OffsetGain = (uint16_t)(Payload[8] << 8 + Payload[9]);
+      
+      setP((float) 5*(ProportionalK/4096));
+      setI((float) 5*(IntegralK/4096));
+      setD((float) 5*(DerivativeK/4096));
+      setCent((float) (200)*(OffsetGain/4096));
+      PayloadReadyFlag=0;
+      }
     }
-    else{
-      TIM1->CCR1 = 100;
-    TIM1->CCR2 = 100;
-    TIM3->CCR1 = 100;
-    TIM3->CCR2 = 100;}
-    */
-    
   
   }
   /* USER CODE END 3 */

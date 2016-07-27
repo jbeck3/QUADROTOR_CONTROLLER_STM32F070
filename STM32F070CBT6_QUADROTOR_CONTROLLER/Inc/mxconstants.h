@@ -53,8 +53,8 @@
 #define CE_NRF_GPIO_Port GPIOB
 #define CS_NRF_Pin GPIO_PIN_11
 #define CS_NRF_GPIO_Port GPIOB
-#define IRQ_NRF_Pin GPIO_PIN_12
-#define IRQ_NRF_GPIO_Port GPIOB
+#define NRF_IRQ_Pin GPIO_PIN_12
+#define NRF_IRQ_GPIO_Port GPIOB
 #define PITCH_POS_Pin GPIO_PIN_8
 #define PITCH_POS_GPIO_Port GPIOA
 #define PITCH_NEG_Pin GPIO_PIN_9
