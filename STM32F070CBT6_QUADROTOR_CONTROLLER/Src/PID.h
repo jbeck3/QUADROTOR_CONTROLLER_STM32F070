@@ -19,22 +19,26 @@ extern "C" {
 	float *PIDRoll,*PIDPitch,*PIDYaw;
 	float accelx,accely,accelz,timeInterval=.001;
         int PIDFlag = 1;
-	float rollKp=.3;
-	float rollKi=.035;
-	float rollKd=.035;
+	float rollKp=.1;
+	float rollKi=.02;
+	float rollKd=.0;
 	float rollPout,rollIout,rollDout;
 	float rollError,rollLastError,rollNewArea,rollRunningArea;
 
-	float pitchKp=.3;
-	float pitchKi=.035;
-	float pitchKd=.035;
+	float pitchKp=.02;
+	float pitchKi=.01;
+	float pitchKd=.00;
 	float pitchPout,pitchIout,pitchDout;
 	float pitchError,pitchLastError,pitchNewArea,pitchRunningArea;
 
+        float Kp = .3;
+        float Ki = .035;
+        float Kd = .035;
+        
 	float pitchOut,rollOut;
 	float pitchTarget=0,rollTarget=0,yawTarget=0;
 	float motorRP,motorRN,motorPP,motorPN;
-	int MOTORPP_OFFSET=3,MOTORPN_OFFSET=0,MOTORRP_OFFSET=2,MOTORRN_OFFSET=2;
+	int MOTORPP_OFFSET=8,MOTORPN_OFFSET=0,MOTORRP_OFFSET=2,MOTORRN_OFFSET=2;
 	int PITCH_MOTOR_CENTER_VAL=100,ROLL_MOTOR_CENTER_VAL=100,OVERALLOFF=0;
 	float KC=0,PC=0;
 	int ZieglerFlag=0,KeepStaticVals=0;

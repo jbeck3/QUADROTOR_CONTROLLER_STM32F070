@@ -55,6 +55,10 @@ void stabilize(){
             rollKi=.025;
             rollKd=.10;
     }
+    //rollKp = pitchKp = Kp;
+    //rollKi = pitchKi = Ki;
+    //rollKd = pitchKd = Kd;
+    
     
     getAllVals();
     PIDRoll = (float *)getRoll();

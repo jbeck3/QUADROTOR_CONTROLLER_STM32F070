@@ -205,7 +205,7 @@ void getAccel(){
   acceleration_y = ((float)((int16_t)(data_accback[6]<<8) + data_accback[5]))*accel_range/0x7FFF;
   acceleration_z = ((float)((int16_t)(data_accback[8]<<8) + data_accback[7]))*accel_range/0x7FFF;
   
-  
+  /*
   if(counter<AVERAGE_MAX){
           counter++;                
           runSumAx += acceleration_x;
@@ -221,7 +221,7 @@ void getAccel(){
           runSumAx = runAvgAx;
           runSumAy = runAvgAy;
           runSumAz = runAvgAz;
-  }
+  }*/
 }
 
 /*
@@ -259,6 +259,9 @@ void getGyro(){
 		runSumGy = runAvgGy;
 		runSumGz = runAvgGz;
 	}
+        
+        
+        
 }
 /*
 void getAllVals()
@@ -299,7 +302,7 @@ void getAllVals(){
 	angular_rate_y = ((float)((int16_t)(data_gyrback[6]<<8) + data_gyrback[5]))*gyro_range/0x7FFF;
 	angular_rate_z = ((float)((int16_t)(data_gyrback[8]<<8) + data_gyrback[7]))*gyro_range/0x7FFF;
 */
-
+/*THIS IS NOT A GOOD AVGING STUFFS HERE BE DRAAYGAWNS
 	if(counter<AVERAGE_MAX){
 		counter++;
 
@@ -326,7 +329,26 @@ void getAllVals(){
 		runSumMy = runAvgMy;
 		runSumMz = runAvgMz;
 	}
-
+*/
+        
+        runSumAx -= sumAx[count];
+        runSumAy -= sumAy[count];
+        runSumAz -= sumAz[count];
+        sumAx[count] = acceleration_x;
+        sumAy[count] = acceleration_y;
+        sumAz[count] = acceleration_z;
+        runSumAx += sumAx[count];
+        runSumAy += sumAy[count];
+        runSumAz += sumAz[count];
+        runAvgAx = runSumAx/AVGCOUNT;
+        runAvgAy = runSumAy/AVGCOUNT;
+        runAvgAz = runSumAz/AVGCOUNT;
+        count++;
+        if(count == AVGCOUNT){
+          count=0;
+        }
+        
+        
 	pitch =  atan2f(runAvgAx,sqrt(runAvgAy*runAvgAy + runAvgAz*runAvgAz))*180/PI;
 	roll  =  atan2f(runAvgAy,(runAvgAz))*180/PI;
 	YH = runAvgMy*cosf(roll)+runAvgMz*sinf(roll);

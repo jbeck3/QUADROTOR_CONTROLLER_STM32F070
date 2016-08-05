@@ -61,7 +61,9 @@ extern "C" {
 	float runAvgMx=0,runAvgMy=0,runAvgMz=0;
 	float runSumMx=0,runSumMy=0,runSumMz=0;
 	float derp45=0,derp0=0,derpn45=0;
-
+        uint8_t AVGCOUNT = 25;
+        uint8_t count=0;
+        float sumAx[25],sumAy[25],sumAz[25];
 	/*
 function prototypes
 	 */
