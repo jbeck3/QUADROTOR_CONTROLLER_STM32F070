@@ -18,7 +18,7 @@ extern "C" {
 	/*Variables and Constants*/
 	float *PIDRoll,*PIDPitch,*PIDYaw;
 	float accelx,accely,accelz,timeInterval=.001;
-
+        int PIDFlag = 1;
 	float rollKp=.3;
 	float rollKi=.035;
 	float rollKd=.035;
@@ -34,8 +34,8 @@ extern "C" {
 	float pitchOut,rollOut;
 	float pitchTarget=0,rollTarget=0,yawTarget=0;
 	float motorRP,motorRN,motorPP,motorPN;
-	int MOTORPP_OFFSET=0,MOTORPN_OFFSET=0,MOTORRP_OFFSET=0,MOTORRN_OFFSET=0;
-	int PITCH_MOTOR_CENTER_VAL=0,ROLL_MOTOR_CENTER_VAL=0;
+	int MOTORPP_OFFSET=3,MOTORPN_OFFSET=0,MOTORRP_OFFSET=2,MOTORRN_OFFSET=2;
+	int PITCH_MOTOR_CENTER_VAL=100,ROLL_MOTOR_CENTER_VAL=100,OVERALLOFF=0;
 	float KC=0,PC=0;
 	int ZieglerFlag=0,KeepStaticVals=0;
 

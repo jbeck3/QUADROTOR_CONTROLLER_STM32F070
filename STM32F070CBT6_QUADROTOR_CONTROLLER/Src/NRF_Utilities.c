@@ -207,8 +207,24 @@ uint8_t *GetStatus(){
   return NRFSPITransmit(&ConfigBuffer[0], 1);
 }
 
-void ClearRXFlag(){
+void ClearRX_DR(){
   ConfigBuffer[0] = W_REGISTER | STATUS;
   ConfigBuffer[1] = 0x40;
   NRFSPITransmit(&ConfigBuffer[0], 2);
+}
+
+uint8_t *IRQHandler(){
+  uint8_t Status = *(uint8_t *)GetStatus();
+  if((Status & RX_DR) == RX_DR){//New Payload Ready
+      ReceivedPayloadP = (uint8_t *)ReceivePayload();
+      ClearRX_DR();
+      for(uint8_t i = 0; i < 32; i++){
+        ReceivedPayload[i] = ReceivedPayloadP[i];
+      }
+  }
+  return &ReceivedPayload[0];
+}
+
+uint8_t *GetPayload(){
+  return &ReceivedPayload[0];
 }

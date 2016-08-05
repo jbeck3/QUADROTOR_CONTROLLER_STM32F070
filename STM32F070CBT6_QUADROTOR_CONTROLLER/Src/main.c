@@ -47,8 +47,8 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
  
-#define tim1_psc = 0xBB80;
-#define tim3_psc = 0xBB80;
+#define tim1_psc = 0x1DC;
+#define tim3_psc = 0x1DC;
 #define tim1_arr = 0x190;
 #define tim3_arr = 0x190;
 
@@ -108,11 +108,11 @@ int main(void)
     //Start Timers and set their outputs
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-    TIM1->PSC  = 0x1E0;
+    TIM1->PSC  = 0x1DC;
     TIM1->ARR  = 0x190;
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
-    TIM3->PSC  = 0x1E0;
+    TIM3->PSC  = 0x1DC;
     TIM3->ARR  = 0x190;
     
     
@@ -137,20 +137,20 @@ int main(void)
     stabilize();
     //Check for new packet
     if(PayloadReadyFlag){
-      PayloadP = (uint8_t *)ReceivePayload();
+      PayloadP = (uint8_t *)IRQHandler();
       for(uint8_t i = 0; i < 32; i++){
-        Payload[i] = PayloadP[i + 1];
+        Payload[i] = PayloadP[i];
       }
-      if(Payload[1] == 0x00){
+      if(Payload[0] == 0x00){
         //kill quad
         setCent(0.0);
         PayloadReadyFlag=0;
       }else{
         //update values
-      ProportionalK = (uint16_t)(Payload[2] << 8 + Payload[3]);
-      IntegralK = (uint16_t)(Payload[4] << 8 + Payload[5]);
-      DerivativeK = (uint16_t)(Payload[6] << 8 + Payload[7]);
-      OffsetGain = (uint16_t)(Payload[8] << 8 + Payload[9]);
+      ProportionalK = (uint16_t)(Payload[1] << 8 + Payload[2]);
+      IntegralK = (uint16_t)(Payload[3] << 8 + Payload[4]);
+      DerivativeK = (uint16_t)(Payload[5] << 8 + Payload[6]);
+      OffsetGain = (uint16_t)(Payload[7] << 8 + Payload[8]);
       
       setP((float) 5*(ProportionalK/4096));
       setI((float) 5*(IntegralK/4096));

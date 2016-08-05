@@ -35,6 +35,10 @@ the device before using this file. Also be sure to check the SPI peripheral Sect
             RF_CH               =0x05,
             RF_SETUP            =0x06,
             STATUS              =0x07,
+                RX_DR           =0x40,
+                TX_DS           =0x20,
+                MAX_RT          =0x10,
+                TX_FULL         =0x01,
             OBSERVE_TX          =0x08,
             RPD                 =0x09,
             RX_ADDR_P0          =0x0A,
@@ -61,15 +65,16 @@ the device before using this file. Also be sure to check the SPI peripheral Sect
     uint16_t NRFCSPin = CS_NRF_Pin;
     GPIO_TypeDef *NRFCEPort = CE_NRF_GPIO_Port;
     uint16_t NRFCEPin = CE_NRF_Pin;
-    /*------------------------------------------------------------------------*/
+    /*------------------------------------------------------------------------*/  
 
     /*----------------------NRF Buffers---------------------------------------*/
-    uint8_t rData[35];
-    uint8_t ConfigBuffer[35] = NULL;
+    uint8_t rData[33];
+    uint8_t ConfigBuffer[33] = NULL;
+    uint8_t ReceivedPayload[32] = NULL;
+    uint8_t *ReceivedPayloadP;
     /*------------------------------------------------------------------------*/
-    
-    /*----------------------Function Prototypes-------------------------------*/
 
+    /*----------------------Function Prototypes-------------------------------*/
     uint8_t *NRFSPITransmit(uint8_t *pData, uint16_t size);
 
     void SetupReceiver();
@@ -84,7 +89,11 @@ the device before using this file. Also be sure to check the SPI peripheral Sect
     
     uint8_t *GetStatus();
     
-    void ClearRXFlag();
+    void ClearRX_DR();
+    
+    uint8_t *IRQHandler();
+    
+    uint8_t *GetPayload();
     /*------------------------------------------------------------------------*/
 
   #ifdef __cplusplus
